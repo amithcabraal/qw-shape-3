@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text-color: #333;
+  --bg-color: #f0f0f0;
+  --title-bg: #333;
+  --title-text: #fff;
+  --menu-bg: #fff;
+  --menu-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+  --menu-hover: #f0f0f0;
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  --modal-bg: #fff;
+  --grid-bg: #fff;
+  --border-color: #333;
+  --cell-border: #999;
+  --cell-border-filled: #666;
+  --valid-color: #00ff00;
+  --invalid-color: #ff0000;
+}
+
+.dark {
+  --text-color: #fff;
+  --bg-color: #1a1a1a;
+  --title-bg: #000;
+  --title-text: #fff;
+  --menu-bg: #333;
+  --menu-shadow: -2px 2px 5px rgba(0,0,0,0.4);
+  --menu-hover: #444;
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+  --modal-bg: #333;
+  --grid-bg: #2a2a2a;
+  --border-color: #666;
+  --cell-border: #444;
+  --cell-border-filled: #888;
+  --valid-color: #00cc00;
+  --invalid-color: #cc0000;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.game-grid {
+  width: 324px; /* 6 * (50px cell + 2px margin) + 2px border + 8px padding */
+  height: 324px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--cell-border);
+  margin: 1px;
+  transition: all 0.2s ease;
+}
+
+.cell.filled {
+  border: 1px solid var(--cell-border-filled);
+}
+
+.cell.preview {
+  opacity: 0.5;
+}
+
+.cell.valid {
+  box-shadow: inset 0 0 0 2px var(--valid-color);
+}
+
+.cell.invalid {
+  box-shadow: inset 0 0 0 2px var(--invalid-color);
+}
+
+.cell.clearing {
+  animation: flash 0.5s ease-out;
+}
+
+.shape-cell {
+  width: 40px;
+  height: 40px;
+  margin: 1px;
+}
+
+.shape-cell.filled {
+  border: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.dark .shape-cell.filled {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.next-shape {
+  position: relative;
+  background: rgba(128, 128, 128, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.next-shape::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 2px dashed rgba(128, 128, 128, 0.2);
+  pointer-events: none;
+}
+
+@keyframes flash {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
